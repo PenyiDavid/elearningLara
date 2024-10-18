@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->string('question_text');
-            $table->integer('subject_id');
+            $table->unsignedBigInteger('subject_id');
             $table->timestamps();
-            $table->softDelete();
+            $table->softDeletes();
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
     }
