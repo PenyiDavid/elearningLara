@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/new-subject', [SubjectController::class, 'index'])->name('subject.index');
+Route::post('/new-subject', [SubjectController::class, 'store'])->name('subject.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

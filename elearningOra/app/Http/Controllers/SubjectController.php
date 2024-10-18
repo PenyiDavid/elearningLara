@@ -6,5 +6,17 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    //
+    public function index(){
+        return view('subjects.create');
+    }
+
+    public function store(Request $request){
+        $request->validate(
+            ['subject_name' => 'required|string'],
+        );
+
+        Subject::create($request->all());
+        return redirect()->back()->with('success', 'Subject stored.');
+    }
+
 }
