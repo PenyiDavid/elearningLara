@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{route('subject.store')}}">
+    <form action="{{route('subject.store')}}" method="POST">
         @csrf
         <label for="subject_name">Subject:</label>
         <input type="text" name="subject_name" id="subject_name">
