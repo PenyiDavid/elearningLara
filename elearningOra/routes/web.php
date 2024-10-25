@@ -16,6 +16,8 @@ Route::post('/new-subject', [SubjectController::class, 'store'])->name('subject.
 Route::get('/new-question', [QuestionController::class, 'index'])->name('question.index');
 Route::post('/new-question', [QuestionController::class, 'store'])->name('question.store');
 
+Route::get('/questions', [QuestionController::class, 'anita'])->name('question.anita');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

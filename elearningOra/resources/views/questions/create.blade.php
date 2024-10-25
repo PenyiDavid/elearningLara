@@ -7,6 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+    @if($errors->any())
+       <ul>
+        @foreach($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+       </ul>
+    @endif
+
+    @if(session('success'))
+        <p>{{session('success')}}</p>
+    @endif
     <form action="{{route('question.store')}}" method="POST">
         @csrf
         <select name="subject_id" id="subject_id">
