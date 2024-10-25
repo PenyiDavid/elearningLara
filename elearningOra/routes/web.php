@@ -17,6 +17,8 @@ Route::get('/new-question', [QuestionController::class, 'index'])->name('questio
 Route::post('/new-question', [QuestionController::class, 'store'])->name('question.store');
 
 Route::get('/questions', [QuestionController::class, 'anita'])->name('question.anita');
+Route::put('/questions/{question}', [QuestionController::class, 'update'])->name('question.edit');
+Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

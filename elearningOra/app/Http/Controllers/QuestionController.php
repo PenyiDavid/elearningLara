@@ -45,7 +45,14 @@ class QuestionController extends Controller
 
     public function anita(){
         $questions = Question::all();
-        $subjects = Subject::all();
-        return view('questions.anita', compact('questions, subjects'));
+        return view('questions.anita', compact('questions'));
     }
+
+    public function update(){
+
+    }
+    public function destroy(){
+
+    }
+
 }
