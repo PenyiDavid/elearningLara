@@ -20,6 +20,16 @@
         <p>{{session('success')}}</p>
     @endif
 
+    <form action="{{route('question.anita')}}" method="GET">
+        <label for="subject_name">Subject name:</label>
+        <select name="subject_name" id="subject_name">
+            @foreach ($subjects as $subject)
+                <option value="{{$subject->subject_name}}">{{$subject->subject_name}}</option>
+            @endforeach
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
     <table>
         <thead>
         <tr>
@@ -45,7 +55,12 @@
                 </td>
                 <td>
                     <a href="{{route('question.show', $question->id)}}">Edit</a>
-                    <a href="{{route('question.destroy', $question->id)}}">Delete</a>
+                    <form action="{{route('question.destroy', $question->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit">DELETE</button>
+                    </form>
                 </td>
             </tr>
             @endforeach

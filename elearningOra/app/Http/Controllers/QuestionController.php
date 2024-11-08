@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     public function index(){
+
         $subjects = Subject::all();
         return view('questions.create', compact('subjects'));
     }
@@ -43,9 +44,18 @@ class QuestionController extends Controller
         return redirect()->back()->with('success', 'Question stored.');
     }
 
-    public function anita(){
-        $questions = Question::all();
-        return view('questions.anita', compact('questions'));
+    public function anita(Request $request){
+        $subjects = Subject::all();
+        $query = Question::query();
+        if($request->has('subject_name') && isset($request->subject_name)){
+            $subject = Subject::where('subject_name', '=', $request->subject_name)->first();
+            if($subject){
+                $query->where('subject_id', '=', $subject->id);
+            }
+        }
+
+        $questions = $query->get();
+        return view('questions.anita', compact('questions', 'subjects'));
     }
 
     public function show(Question $question){
@@ -73,8 +83,11 @@ class QuestionController extends Controller
 
         return redirect()->route('question.anita')->with('success', 'Question updated');
     }
-    public function destroy(){
-
+    public function destroy($id){
+        $question = Question::findOrFail($id);
+        $question->answers()->delete();
+        $question->delete();
+        return redirect()->route('question.anita')->with('success', 'DELETED successfully');
     }
 
 }
