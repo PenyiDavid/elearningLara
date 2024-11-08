@@ -44,7 +44,7 @@
                     </ul>
                 </td>
                 <td>
-                    <a href="{{route('question.edit', $question->id)}}">Edit</a>
+                    <a href="{{route('question.show', $question->id)}}">Edit</a>
                     <a href="{{route('question.destroy', $question->id)}}">Delete</a>
                 </td>
             </tr>

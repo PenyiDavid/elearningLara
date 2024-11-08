@@ -48,8 +48,30 @@ class QuestionController extends Controller
         return view('questions.anita', compact('questions'));
     }
 
-    public function update(){
+    public function show(Question $question){
+        $subjects = Subject::all();
+        return view('questions.show', compact('question','subjects'));
+    }
+    public function update(Request $request, $id){
+        $request->validate([
+            'question_text' => 'required|string|max:255',
+            'subject_id' => 'required|exists:subjects,id',
+            'answers' => 'required|array|min:2',
+            'answers.*.id' => 'required|exists:answers,id',
+            'answers.*.answer_text' => 'required|string|max:255',
+        ]);
+        $question = Question::findOrFail($id);
+        $question->update($request->only('question_text', 'subject_id'));
 
+        foreach($request->input('answers') as $answerData){
+            $answer = Answer::findOrFail($answerData['id']);
+            $answer->update([
+                'answer_text' => $answerData['answer_text'],
+                'is_correct' => isset($answerData['is_correct']) ? $answerData['is_correct'] : 0,
+            ]);
+        }
+
+        return redirect()->route('question.anita')->with('success', 'Question updated');
     }
     public function destroy(){
 
